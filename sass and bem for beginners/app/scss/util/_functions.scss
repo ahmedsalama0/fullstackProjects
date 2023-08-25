@@ -1,0 +1,26 @@
+@use 'sass:math';
+// remeber to use math as a namespace
+// calling the sass math built-in module
+// => px to rem function
+// Sass variables must start with $
+
+// throw an error if the user gave an argument includes unit (e.g.rem(16px))
+@function rem($pixel) {
+  // Divide $pixel by 16 to return rems
+  // we will use bulit-in sass functions to do division
+
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + rem;
+  } @else {
+    @error 'Don\'t use unita when using the rem() function; ONLY numbers are allowed!';
+  }
+}
+
+// px => em
+@function em($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + rem;
+  } @else {
+    @error 'Don\'t use unita when using the em() function; ONLY numbers are allowed!';
+  }
+}

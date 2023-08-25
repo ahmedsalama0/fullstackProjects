@@ -1,0 +1,15 @@
+:root {
+  --background-color: hsl(0, 0%, 11%);
+  --text-color: hsl(0, 0%, 100%);
+}
+
+.magenta {
+  // extending yhe widget place holder
+  // @extend %widget;
+  background: hsl(300, 100%, 30%);
+}
+
+.green {
+  // grid__widget.magenta
+  background: hsl(120, 100%, 27%);
+}

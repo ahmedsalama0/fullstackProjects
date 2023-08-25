@@ -1,0 +1,50 @@
+@use 'functions' as f;
+// mpbile tablet desktop
+// 700px, 900px, 1440px
+
+// Saas map
+$breakpoints-up: (
+  // small => default
+  'medium': f.em(700),
+  'large': f.em(900),
+  'xlarge': f.em(1440)
+);
+// $breakpoints-up: (
+//   // small => default
+//   'medium': 700px,
+//   'large': 900px,
+//   'xlarge': 1440px
+// );
+
+// new saas map for max-width breakpoints;
+// 0.02 less than the above map in sizes to avoid overlapping
+// 699.98px, 899.98px, 1439.98px
+$breakpoints-down: (
+  'small': f.em(699.98),
+  'medium': f.em(899.98),
+  // 56.25em, // edge case, overlapping happen (both styles applied in the edge case..... so we add the 0.02 difference to avoid overlapping
+  // 56.24875em,
+  'large': f.em(1439.98),
+);
+// $breakpoints-down: (
+//   'small': 699.98px,
+//   'medium': 899.98px,
+//   // 56.25em, // edge case, overlapping happen (both styles applied in the edge case..... so we add the 0.02 difference to avoid overlapping
+//   // 56.24875em,
+//   'large': 1439.98px,
+// );
+
+@mixin breakpoint($size) {
+  // add media queries that we want to write
+  // we use map-get (saas map name, wanted_key e.g.medium) function to use the above saas map
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    // load all the style rules in the mixin itself when we are using it
+    @content;
+  }
+}
+
+@mixin breakpoint-down($size) {
+  @media (max-width: map-get($breakpoints-down,$size)) {
+    @content;
+  }
+}

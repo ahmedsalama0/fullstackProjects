@@ -1,0 +1,32 @@
+Exercise: Throwing & Handling Errors
+For this exercise, you must add code to both the breakMe() and the main() functions.
+
+In breakMe(), you should throw a custom error object. This object may contain any data of your choice but it absolutely must contain a message property (which then holds any text of your choice).
+
+main() calls breakMe() but you must adjust the code in main() such that the error thrown by breakMe() is handled and main() therefore does NOT throw an error.
+
+Instead, main() should return (but not throw!) the error object thrown by breakMe().
+
+
+====================
+let b;
+function breakMe() {
+    const a = 5;
+    b = 0;
+    if (b == 0){
+              // Throwing an object (property: value);
+    throw {message: 'This is an ERROR'};
+    }
+}
+
+function main() {
+    // Todo: Handle breakMe()'s error with grace
+    try {
+    breakMe();
+    } catch (error) {
+        console.log(error);
+        console.log({message: 'This is an ERROR'});
+        b=1;
+     return error;
+    }
+}

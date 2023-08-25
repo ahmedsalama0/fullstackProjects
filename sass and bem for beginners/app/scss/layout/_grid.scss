@@ -1,0 +1,162 @@
+@use '../util' as u;
+
+// Creating a placeholder
+// %widget {
+//   padding: u.rem(16);
+// }
+.grid {
+  display: grid;
+  // on mobile devices styles
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: u.rem(40);
+  // and a little space on both sides of mobiles
+  // padding-left: 20px;
+  // padding-right: 20px;
+  // max-width: 1000px;
+  // wanting to limit using max-widh
+  // altrenative
+  // to add padding 20px to the left and right for mobile devices, we subtract 40px from
+  // and this side padding (space) will not affect the 1000px large screens
+  width: min(100% - u.rem(40), u.rem(1000));
+  // on mobile devices in this case we want it 100% screen width and in large screens we don't want the content to be bigger than a thousand 1000px
+  ///////
+  // centering the content
+  // margin-left: auto;
+  // margin-right: auto ;
+  // or
+  // Clockwise => top, right, bottom, left
+  // margin: 0 auto 0 auto
+  // or
+  // top, right, bottom, and for marleft it will set it to auto even though we didn't say auto
+  // margin: 0 auto 40px;
+  // shorthand property
+  // but these properties make us set values for margin top and bottom even if we do not want
+  // alternative property
+  // margin-inline, which is short hand for margin-inline-start & margin-inline-end
+  margin-inline: auto;
+  // we alternatively center the content hozizontally (inline-axis) by making the body grid and justify content in it or using flexbox
+  // margin: 0 auto;
+  // for bigger screens
+  // typing media queries inside the elements unlike pure css
+
+  // @media (min-width: 900px) {
+  //   grid-template-columns: 2fr 1fr;
+  //   grid-template-rows: auto;
+  //   // cancelling out the above padding
+  //   // padding-left: 0;
+  //   // padding-right: 0;
+  // }
+  // font-size: 2rem;
+  // font-size: 2em;
+
+  // replacing the above whith the one that use mixin
+  @include u.breakpoint(large) {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    // cancelling out the above padding
+    // padding-left: 0;
+    // padding-right: 0;
+  }
+
+  // @media (max-width: 899px) {
+  //   //
+  //   // cancelling out the above padding in the last media query instead of typing it as default in mobiles and cancelling it out in desktops, JUST type it in one place
+  //   padding-left: 20px;
+  //   padding-right: 20px;
+  //   // we did it like this instead of writing them up and cancelling out them in other devices
+  //   // but this is not ideal since we have to write a new media query, instead we wil use min function
+  // }
+  // this actually can end up with overcomplcating our styles, since you have to set condition to each size
+  // @media (min-width: 900px) and (max-width: 1920px) {
+  //   grid-template-columns: 2fr 1fr;
+  //   grid-template-rows: auto;
+  // }
+
+  // the compund selector
+  &__main,
+  &__sidebar {
+    padding: u.rem(40);
+  }
+  &__main {
+    background-color: hsl(240, 99%, 33%);
+
+    @include u.breakpoint(medium) {
+      background-color: hsl(120, 100%, 16%);
+    }
+
+    @include u.breakpoint(large) {
+      background-color: hsl(39, 100%, 35%);
+    }
+  }
+
+  &__sidebar {
+    // background-color: hsl(300, 100%, 30%);
+    // text-align: center;
+    // Adding a media query to cancel it out (text-align: center;) in other devices tablets and desktops
+    // @include u.breakpoint(large) {
+    //   // applyies in large and up devices
+    //   text-align: left; // returning the default
+    // }
+    // alternative to the above include this media query
+    // @media (max-width: 56.25em) {
+    //   text-align: center;
+    //   // insead of the above creating and cancelling out (make the text alignment centered until 900px width, and default (left) for larger devices
+    //   // we say here if the width is 56.25em (900px) and down the center the text
+    // }
+    // instead of the last media query we ceate a mixin for that
+    @include u.breakpoint-down(medium) {
+      text-align: center;
+    }
+
+    @include u.breakpoint-down(small) {
+      text-align: right;
+    }
+  }
+
+  &__widget {
+    padding: u.rem(16);
+    // $widget: &;
+    // background-color: hsl(300, 100%, 30%);
+    // making block formating context to get rid of margin collapse effect
+
+    // border: 1px solid yellow;
+    // or other soln
+    // padding: 1px;
+
+    // padding: u.rem(16);
+
+    // &--magenta {
+    //   // extending yhe widget place holder
+    //   // @extend %widget;
+    //   background: hsl(300, 100%, 30%);
+    // }
+    // &.magenta {
+    //   // extending yhe widget place holder
+    //   // @extend %widget;
+    //   background: hsl(300, 100%, 30%);
+    // }
+
+    // &--green {
+    //   // @extend %widget;
+    //   // @extend .grid__widget;
+    //   // importing styles from the above widget placeholder
+    //   // @extend %widget;
+    //   // can't use ampersend & parent selector directly
+    //   // workaround: creating a variable that holds &
+    //   // displaying sass variables in sass styles itself
+    //   // interpolation #{$widget}
+    //   // @extend #{$widget};
+    //   background: hsl(120, 100%, 27%);
+    // }
+
+    // & and her to indicate they are in the same element
+    // grid__widget.magenta // the rule with no space between (AND), indicates they are in the same element
+    //
+    // grid__widget .magenta // if they have space between it will considered the descendent elements (two different elements, where one of them is a child of the other)
+    // &.green {
+    //   // grid__widget.magenta
+    //   background: hsl(120, 100%, 27%);
+    // }
+  }
+}

@@ -1,0 +1,30 @@
+// @use '../util' as *;
+// if you wouldn't to use namespace at all we can use wildcard(*), but then we might suffer from conflicts
+@use '../util' as u; // safer than wildcard (*)
+// @use '../util';
+
+html {
+  box-sizing: border-box;
+  font-size: 100%; // 62.5%
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  //font-family: $font; // no namespace due to using wildcard (*)
+  font-family: u.$font;
+  // font-family: util.$font;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  // centering the body horizontally (inline)
+  // display: grid;
+  // display: flex;
+  // justify-content: center;
+  // font-size: 1.5em;
+}
